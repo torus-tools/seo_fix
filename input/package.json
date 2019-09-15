@@ -1,0 +1,22 @@
+{
+  "name": "brilat",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gkpty/jewler_site.git"
+  },
+  "author": "Torus Digital",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gkpty/jewler_site/issues"
+  },
+  "homepage": "https://github.com/gkpty/jewler_site#readme",
+  "dependencies": {
+    "scrollreveal": "^4.0.5"
+  }
+}

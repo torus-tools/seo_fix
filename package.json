@@ -1,0 +1,30 @@
+{
+  "name": "torus_cms_build",
+  "version": "1.0.0",
+  "description": "node js script that builds an html website with repeated components like nav and footer",
+  "main": "build-script.js",
+  "dependencies": {
+    "fs": "0.0.1-security",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gkpty/torus-cms-build-script.git"
+  },
+  "keywords": [
+    "node",
+    "static",
+    "website",
+    "multipage"
+  ],
+  "author": "gkpty",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gkpty/torus-cms-build-script/issues"
+  },
+  "homepage": "https://github.com/gkpty/torus-cms-build-script#readme"
+}
