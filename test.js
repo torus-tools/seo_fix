@@ -125,26 +125,24 @@ recurseFolder("input/", function(filePath, name, stat) {
     
     if(fileExtension =='html'){
         //use fs to read the contents of the file, edit and copy the file into the output folder
-        fs.readFile(filePath, 'utf8', function (err, html) {
-            if (err) {
-              return console.log(err);
+        var html = fs.readFileSync(filePath, 'utf8');
+        Object.keys(myComponents).map(function(key, index) {
+            //if the key exists in the document
+            if (html.search(key)){
+                //replace key with walue
+                html = html.replace(key, myComponents[key]);
             }
-            var result = Object.keys(myComponents).map(function(key, index) {
-                //if the key exists in the document
-                console.log(key)
-                html.replace(key, myComponents[key])
-            });
-          
-            fs.writeFile(`output/${fileSubPath}`, result, 'utf8', function (err) {
-               if (err) return console.log(err);
-            });
-            console.log("The html file was saved to output");
         });
-
+        fs.writeFile(`output/${fileSubPath}`, html, function(err) {
+            //console.log(html);
+            if(err) {
+                return console.log(err);
+            }
+            console.log("The html file was saved to output");
+        })
         /*
-        fs.readFile(filePath, function (err, html) {
+        var readFile = fs.readFile(filePath, function (err, html) {
             if (err) throw err;
-            console.log(html)
             //map your html components and for each item check if the key exists and replace it with the value
             Object.keys(myComponents).map(function(key, index) {
                 //if the key exists in the document
