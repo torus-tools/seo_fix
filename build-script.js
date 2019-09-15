@@ -116,10 +116,7 @@ function recurseFolder(currentDirPath, callback) {
 // now we call our recurseFolder function supplying a directory path and a callback function
 recurseFolder("input/", function(filePath, stat) {
     //inside our callback function 
-    console.log(filePath)
     let fileSubPath = filePath.split('input/', 2)[1];
-    console.log(fileSubPath)
-    //console.log(fileSubPath);
     let fileExtension = filePath.substring(filePath.lastIndexOf('.') + 1);
     
     if(fileExtension =='html'){
@@ -133,11 +130,10 @@ recurseFolder("input/", function(filePath, stat) {
             }
         });
         fs.writeFile(`output/${fileSubPath}`, html, function(err) {
-            //console.log(html);
             if(err) {
                 return console.log(err);
             }
-            console.log("The html file was saved to output");
+            console.log(`${fileSubPath} was succesfully written to output`);
         });
     }
     //if its not an html file just copy it as is by calling the copyFunctionn we created
@@ -164,5 +160,5 @@ recurseFolder("input/", function(filePath, stat) {
     */
 
     //log the stat of our upload in the console
-    console.log(fileSubPath, "->", stat);        
+    //console.log(fileSubPath, "->", stat);        
 });
