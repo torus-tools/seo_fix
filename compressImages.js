@@ -1,4 +1,4 @@
-function compressImage(file){
+function compressImage(file, callback){
   let fileExtension = file.split(".")[1]
   if(fileExtension ==='svg'){
     //Compressing Scalable Vector Graphics
@@ -27,4 +27,5 @@ function compressImage(file){
   else if(fileExtension ==='webp'){
     //Compressing Web Picture format
   }
+  else callback(null, null)
 }
