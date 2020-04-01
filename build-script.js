@@ -4,85 +4,8 @@ const fs = require('fs');
 
 // Below we declare our javascript components as key value pairs
 var myComponents = {
-    "<HEAD>":
-        `<head>
-            <meta charset="utf-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-            <meta name="description" content="">
-            <meta name="author" content="">
-            <title> Title </title>
-            <!-- Google Fonts -->
-            <link href="https://fonts.googleapis.com/css?family=EB+Garamond&display=swap" rel="stylesheet">
-            <!-- Bootstrap 4 -->
-            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-            <!-- Font Awesome Icons -->
-            <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-            <!-- Custom styles for this template -->
-            <link rel="stylesheet" href="index.css">
-        </head>`,
-    "<NAV>":
-        `<nav id="mainNav" class="navbar navbar-expand-lg navbar-light navbar-shrink fixed-top px-5">
-            <div class="container-fluid">
-                <button class="navbar-toggler text-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="fa fa-2x fa-bars"></span>
-                </button>
-            
-                <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
-                    <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link" href="index.html">Inicio</a>
-            </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" href="about.html">Quienes Somos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="collections.html">Colecciones</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="gem_guides.html">Gemas</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="events.html">Eventos</a>
-            </li>
-            <li class="nav-item">
-                            <a class="nav-link" href="contact.html">Contáctanos</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>`,
-    "<FOOTER>":
-        `<footer class="small text-center">
-            <div class="container">
-            <div class="row">
-                <div class="col-sm-6">
-                <p class="text-lg-left">Copyright &copy; Brilat 2019</p>
-                </div>
-                <div class="col-sm-6">
-                <p class="text-lg-right">powered by <a href="http://torus-digital.com">Torus</a></p>
-                </div>
-            </div>
-            </div>
-        </footer>`,
-    "<SCRIPTS>":
-        `<script>
-            ScrollReveal().reveal('.brilat-logo', { easing: 'ease-in' });
-            ScrollReveal().reveal('.carousel-caption', { delay: 300 });
-            ScrollReveal().reveal('.reveal', { easing: 'ease-in', duration: 1200 });
-            ScrollReveal().reveal('.reveal-right', {duration: 1700, origin:'right', distance:'300px', viewFactor: 0.2});
-            ScrollReveal().reveal('.reveal-left', {duration: 1500, origin:'left', distance:'300px', viewFactor: 0.2});
-            ScrollReveal().reveal('.reveal-top', {duration: 1500, origin:'top', distance:'300px', viewFactor: 0.2});
-            ScrollReveal().reveal('.reveal-bottom', {duration: 1500, origin:'bottom', distance:'300px', viewFactor: 0.2});
-        </script>
-        <!-- Bootstrap core JavaScript -->
-        <script
-        src="https://code.jquery.com/jquery-3.4.1.min.js"
-        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-        crossorigin="anonymous">
-        </script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o" crossorigin="anonymous"></script>
-        <!-- Custom scripts for this template -->
-        <script src="js/index.js"></script>`   
+    "<HEAD>":"",
+    "<OTHER>":""
 }
 
 
@@ -118,47 +41,77 @@ recurseFolder("input/", function(filePath, stat) {
     //inside our callback function 
     let fileSubPath = filePath.split('input/', 2)[1];
     let fileExtension = filePath.substring(filePath.lastIndexOf('.') + 1);
-    
+    let stylesheets = []
     if(fileExtension =='html'){
         //use fs to read the contents of the file, edit and copy the file into the output folder
         var html = fs.readFileSync(filePath, 'utf8');
-        Object.keys(myComponents).map(function(key, index) {
-            //if the key exists in the document
-            if (html.search(key)){
-                //replace key with walue
-                html = html.replace(key, myComponents[key]);
-            }
-        });
-        fs.writeFile(`output/${fileSubPath}`, html, function(err) {
-            if(err) {
-                return console.log(err);
-            }
-            console.log(`${fileSubPath} was succesfully written to output`);
-        });
-    }
-    //if its not an html file just copy it as is by calling the copyFunctionn we created
-    else {
-        copyFile(fileSubPath)
-    }
-
-    /*
-    else if(fileExtension =='svg'){
-        //compress svg image
-    }
-    else if(fileExtension =='jpg' || fileExtension =='jpeg'){
-        //compress jpeg image
-    }
-    else if(fileExtension =='png'){
-        //compress png image
+        //resizeTumbnails
+        //run arjanSeo
+        //minify/compress
     }
     else if(fileExtension =='css'){
-        //compress css file
+        //save the css file in stylesheets array
+        stylesheets.push(filePath)
     }
     else if(fileExtension =='js'){
-        //compress js file
+        //if the filsize is greater than x console.log(error)
+        //compresss js file
     }
-    */
-
-    //log the stat of our upload in the console
-    //console.log(fileSubPath, "->", stat);        
+    else {
+        compressImage(filePath, (err, data) => {
+            if(err) throw new Error(err)
+            else{
+                if(data) console.log('image compressed')
+                else copyFile(fileSubPath)
+            }
+        })
+        
+    }    
 });
+
+
+DeleteCss(stylesheets, classes){
+    for(let sheet of stylesheets){
+        //read the stylsheet
+        let stylesheet = fs.readFileSync(sheet, 'utf8')
+        let styles = stylesheet.split("}")
+        for(let i =0; i<stylesheets.length; i++){
+            let classLine = stylesheets[i].split("{")[0]
+            let classInstance = stylesheets[i]+'}'
+            if(classLine.includes(",")){
+                let classLineItems = classLine.split(",")
+                //if classes array doesnt contain any of the clasess in the line delete the class instance
+                //if it doesnt contain a couple then delete the class from the class line but not the class instance
+                let toDel = 0;
+                let dots = 0;
+                for(let cl of classLineItems) {
+                    if(!classes[cl]) toDel +=1
+                    if(cl.startsWith(".")) dots +=1
+                }
+
+            }
+            else {
+                let classArr = classLine.split(" ")
+                for( let c of classArr){
+                    if(c.includes(".")){
+                        multiclass = c.split(".")
+                        for(let inst of multiclass){
+                            if(!classes[inst]) stylesheet = stylesheet.replace(classInstance, "")
+                        }
+                    }
+                }
+            }
+
+
+
+        }
+
+    }
+}
+
+
+compressCss(stylesheets){
+    for(let sheet of stylesheets){
+        //use cssnano to compress
+    }
+}

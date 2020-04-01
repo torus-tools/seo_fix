@@ -8,7 +8,7 @@ function resizeThumbnails(htmlFile){
     //split into image tags
     let images = htmlFile.split("<img")
     for(let i=1; i<images.length; i++){
-      let image = i.split(">")[0]
+      let image = images[i].split(">")[0]
       if(image.includes("class=")){
         let imgClass = image.split("class=")[1].split("")[0]
         let imgSrc = image.split("src=")[1].split("")[0]
@@ -35,4 +35,25 @@ function resizeThumbnails(htmlFile){
       }
     }
   }
+}
+
+function createClassList(htmlFile){
+  var classes = {}
+  if(htmlFile.includes("class=")){
+    let htmlArr = htmlFile.split("class=")
+    for(let i=1; i<htmlArr.length; i++){
+      let delim = `"`
+      if(htmlArr[i].startsWith(`'`)) delim = `'`
+      let classesStr = htmlArr[i].split(delim)[1]
+      let classesArr = classesStr.split(" ")
+      for(let c of classesArr){
+        if(!classes[c]) classes[c] = ""
+      }
+    }
+  }
+}
+
+module.exports = {
+  resizeThumbnails,
+  createClassList
 }
