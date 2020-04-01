@@ -4,6 +4,11 @@ const sharp = require('sharp');
 
 function resizeThumbnails(htmlFile){
   //check if document contains arjan-thumbnail
+  let sizes = {
+    "sm":{"length":"75", "width":"75"},
+    "md":{"length":"125", "width":"125"},
+    "lg":{"length":"200", "width":"200"},
+  }
   if(htmlFile.includes("arjan-thumbnail")){
     //split into image tags
     let images = htmlFile.split("<img")
@@ -16,19 +21,9 @@ function resizeThumbnails(htmlFile){
           let size = imgClass.split("arjan-thumbnail-")[1].substr(0,2)
           let img = fs.readFileSync(imgSrc)
           if(!imgSrc.includes("https")){
-            //resize the image according to size
-            switch(size) {
-              case 'sm':
-                //create small thumbnaill
-                break;
-              case 'md':
-                //create a medium thumbnail
-                break;
-              case 'lg':
-                //create large thumbnail
-                break;
-              default:
-                throw new Error("invalid thumbnail class. only use the following classes: \narjan-thumbnail-sm \narjan-thumbnail-md \narjan-thumbnail-lg")
+            if(!sizes[size]) throw new Error("invalid thumbnail class. only use the following classes: \narjan-thumbnail-sm \narjan-thumbnail-md \narjan-thumbnail-lg")
+            else {
+              //resize according to sizes[size] using sharp
             }
           }
         }
