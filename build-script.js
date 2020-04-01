@@ -88,9 +88,9 @@ var myComponents = {
 
 //below we create a function that uses the fs.copyFile to copy a file  
 function copyFile(fileName) {
-    fs.copyFile(`input/${fileName}`, `output/${fileName}`, (err) => {
+    fs.copyFile(`input/${fileName}`, `output/${fileName}`, (err, data) => {
         if (err) throw err;
-        console.log(`${fileName} was copied to output`);
+        else console.log(`${fileName} was copied to output`);
     });
 }
 
