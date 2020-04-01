@@ -70,46 +70,6 @@ recurseFolder("input/", function(filePath, stat) {
 });
 
 
-DeleteCss(stylesheets, classes){
-    for(let sheet of stylesheets){
-        //read the stylsheet
-        let stylesheet = fs.readFileSync(sheet, 'utf8')
-        let styles = stylesheet.split("}")
-        for(let i =0; i<stylesheets.length; i++){
-            let classLine = stylesheets[i].split("{")[0]
-            let classInstance = stylesheets[i]+'}'
-            if(classLine.includes(",")){
-                let classLineItems = classLine.split(",")
-                //if classes array doesnt contain any of the clasess in the line delete the class instance
-                //if it doesnt contain a couple then delete the class from the class line but not the class instance
-                let toDel = 0;
-                let dots = 0;
-                for(let cl of classLineItems) {
-                    if(!classes[cl]) toDel +=1
-                    if(cl.startsWith(".")) dots +=1
-                }
-
-            }
-            else {
-                let classArr = classLine.split(" ")
-                for( let c of classArr){
-                    if(c.includes(".")){
-                        multiclass = c.split(".")
-                        for(let inst of multiclass){
-                            if(!classes[inst]) stylesheet = stylesheet.replace(classInstance, "")
-                        }
-                    }
-                }
-            }
-
-
-
-        }
-
-    }
-}
-
-
 compressCss(stylesheets){
     for(let sheet of stylesheets){
         //use cssnano to compress

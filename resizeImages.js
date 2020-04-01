@@ -2,7 +2,7 @@ var fs = require('fs')
 const sharp = require('sharp');
 //first optimize the html.
 
-function resizeThumbnails(htmlFile){
+module.exports = function resizeThumbnails(htmlFile){
   //check if document contains arjan-thumbnail
   let sizes = {
     "sm":{"length":"75", "width":"75"},
@@ -30,25 +30,4 @@ function resizeThumbnails(htmlFile){
       }
     }
   }
-}
-
-function createClassList(htmlFile){
-  var classes = {}
-  if(htmlFile.includes("class=")){
-    let htmlArr = htmlFile.split("class=")
-    for(let i=1; i<htmlArr.length; i++){
-      let delim = `"`
-      if(htmlArr[i].startsWith(`'`)) delim = `'`
-      let classesStr = htmlArr[i].split(delim)[1]
-      let classesArr = classesStr.split(" ")
-      for(let c of classesArr){
-        if(!classes[c]) classes[c] = ""
-      }
-    }
-  }
-}
-
-module.exports = {
-  resizeThumbnails,
-  createClassList
 }
