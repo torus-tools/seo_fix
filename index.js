@@ -6,7 +6,7 @@ var UglifyJS = require("uglify-js");
 var {minify} = require('html-minifier');
 
 module.exports = async function index(){
-  await main()
+  await main().catch((err) => {console.log(err)})
   .then(console.log("optimizing css . . ."))
   .then(console.log("compressing css . . ."))
   .then(console.log('All Done!'))
@@ -50,7 +50,7 @@ async function main(){
           console.log(`compressing ${fileSubPath} . . .`)
           var code = fs.readFileSync(filePath, 'utf8')
           var result = UglifyJS.minify(code);
-          if (result.error) throw result.error;
+          if (result.error) reject(result.error);
           else fs.writeFileSync(`output/${fileSubPath}`, result.code)
           console.log('compressed the js file')
           //if the filsize is greater than x console.log(error)

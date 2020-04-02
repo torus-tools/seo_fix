@@ -1,5 +1,9 @@
 const path = require("path");
 const fs = require('fs');
+var ignorePaths = {
+    "node_modules":true,
+    "forms":true,
+}
 
 //below we create a function that uses the fs.copyFile to copy a file  
 function copyFile(fileName) {
@@ -22,10 +26,13 @@ function scanFolder(currentDirPath, callback) {
         else if (stat.isDirectory()) {
             //copy the directory to output
             let fileSubPath = filePath.split("input/", 2)[1]
-            if(!fs.existsSync(`output/${fileSubPath}`)){
-                fs.mkdirSync(`output/${fileSubPath}`)
+            if(ignorePaths[fileSubPath]) console.log("ignoring ", fileSubPath)
+            else {
+                if(!fs.existsSync(`output/${fileSubPath}`)){
+                    fs.mkdirSync(`output/${fileSubPath}`)
+                }
+                scanFolder(filePath, callback);
             }
-            scanFolder(filePath, callback);
         }
     });
 }
