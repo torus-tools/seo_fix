@@ -7,9 +7,9 @@ var {minify} = require('html-minifier');
 
 module.exports = async function index(){
   await main().catch((err) => {console.log(err)})
-  .then(console.log("optimizing css . . ."))
-  .then(console.log("compressing css . . ."))
-  .then(console.log('All Done!'))
+  .then(()=> {console.log("optimizing css . . .")})
+  .then(() => {console.log("compressing css . . .")})
+  .then(() => {console.log('All Done!')})
 }
 
 async function main(){
@@ -70,5 +70,6 @@ async function main(){
         })     
       }    
     })
-  }).then(console.log(classes))
+    resolve('done')
+  })
 }
