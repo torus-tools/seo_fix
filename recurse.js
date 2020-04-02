@@ -20,6 +20,11 @@ function scanFolder(currentDirPath, callback) {
         }
         //if the current directory is indeed a directory then we will execute the same function scanFolder. This is what we call recursion as we call the function within itself. recursion is like the movie inception and it is sometimes a complicated process to grasp  but think about a website with many folders and files, folders contain files and other folders and you have many layers of folders and files within folders. Recursion sometimes requires more processing power than other solutions and isnt always the best but in this case we would need sevceral morelines of code to write a solution for this that woud work without recursion.
         else if (stat.isDirectory()) {
+            //copy the directory to output
+            let fileSubPath = filePath.split("input/", 2)[1]
+            if(!fs.existsSync(`output/${fileSubPath}`)){
+                fs.mkdirSync(`output/${fileSubPath}`)
+            }
             scanFolder(filePath, callback);
         }
     });

@@ -7,7 +7,8 @@
     "fs": "0.0.1-security",
     "html-minifier": "^4.0.0",
     "path": "^0.12.7",
-    "sharp": "^0.25.2"
+    "sharp": "^0.25.2",
+    "uglify-js": "^3.8.1"
   },
   "devDependencies": {},
   "scripts": {
