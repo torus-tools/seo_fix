@@ -7,20 +7,23 @@ var {minify} = require('html-minifier');
 
 module.exports = async function index(){
   await main().catch((err) => {console.log(err)})
-  .then(()=> {console.log("optimizing css . . .")})
+  .then((res)=> {
+    console.log("optimizing css . . .")
+    unusedCss.deleteUnusedCss(res.stylesheets, res.classes)
+  })
   .then(() => {console.log("compressing css . . .")})
   .then(() => {console.log('All Done!')})
 }
 
 async function main(){
   let classes = {}
+  let stylesheets = []
   return new Promise((resolve, reject) => {
     scanFolder("input/", async (filePath, stat) => {
       //inside our callback function 
       let fileSubPath = filePath.split('input/', 2)[1];
       let fileExtension = filePath.substring(filePath.lastIndexOf('.') + 1);
       //let fileName = filePath.substring(filePath.lastIndexOf('/') + 1)
-      let stylesheets = []
       if(fileExtension =='html'){
           //use fs to read the contents of the file, edit and copy the file into the output folder
           var html = fs.readFileSync(filePath, 'utf8');
@@ -70,6 +73,6 @@ async function main(){
         })     
       }    
     })
-    resolve('done')
+    resolve({stylesheets:stylesheets, classes:classes})
   })
 }
