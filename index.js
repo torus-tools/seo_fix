@@ -1,9 +1,9 @@
-var fs = require('fs')
-var {copyFile, scanFolder} = require('./recurse')
-var unusedCss = require('./unusedCss')
-var compressImage =  require('./compressImages')
+var fs = require('fs');
+var {copyFile, scanFolder} = require('./recurse');
+var unusedCss = require('./unusedCss');
+var compressImage =  require('./compressImages');
 var UglifyJS = require("uglify-js");
-
+var {minify} = require('html-minifier');
 
 module.exports = async function index(){
   await main()
@@ -30,6 +30,16 @@ async function main(){
           //resizeTumbnails
           //run arjanSeo
           //minify/compress
+          var result = minify(html, {
+            removeAttributeQuotes: false,
+            removeComments: false,
+            html5: true,
+            minifyJS: true,
+            collapseWhitespace: true,
+            removeEmptyAttributes: true,
+            removeEmptyElements: true
+          });
+          fs.writeFileSync(`output/${fileSubPath}`, result)
           //save to output
       }
       else if(fileExtension =='css'){
