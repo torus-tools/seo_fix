@@ -3,10 +3,7 @@ const fs = require('fs');
 
 //below we create a function that uses the fs.copyFile to copy a file  
 function copyFile(fileName) {
-    fs.copyFile(`input/${fileName}`, `output/${fileName}`, (err, data) => {
-        if (err) throw err;
-        else console.log(`${fileName} was copied to output`);
-    });
+    return fs.copyFileSync(`input/${fileName}`, `output/${fileName}`)
 }
 
 //below we create a function called recurseFolder that takes in two parameters, the current folder and a callback function

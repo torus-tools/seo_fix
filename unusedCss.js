@@ -6,11 +6,15 @@ function createClassList(htmlFile, classes){
     for(let i=1; i<htmlArr.length; i++){
       let delim = `"`
       if(htmlArr[i].startsWith(`'`)) delim = `'`
-      let classesStr = htmlArr[i].split(delim)[1]
-      let classesArr = classesStr.split(" ")
-      for(let c of classesArr){
-        if(!classes[c]) classes[c] = ""
+      if(htmlArr[i].substr(1,1) !== htmlArr[i].substr(0,1)){
+        let classesStr = htmlArr[i].split(delim)[1]
+        if(!classesStr) console.log('Error. invalid class ' + htmlArr[i])
+        let classesArr = classesStr.split(" ")
+        for(let c of classesArr){
+          if(!classes[c]) classes[c] = ""
+        }
       }
+      
     }
   }
 }

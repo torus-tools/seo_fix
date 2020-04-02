@@ -1,31 +1,31 @@
-function compressImage(file, callback){
+module.exports = function compressImage(file, callback){
   let fileExtension = file.split(".")[1]
   if(fileExtension ==='svg'){
-    //Compressing Scalable Vector Graphics
+    console.log(`Compressing Scalable Vector Graphics ${file}`)
   }
   else if(fileExtension ==='jpg' || fileExtension ==='jpeg' || fileExtension ==='jfif' || fileExtension ==='pjpeg' || fileExtension ==='pjp'){
-      //Compressing Joint Photographic Expert Group image
+      console.log(`Compressing Joint Photographic Expert Group image ${file}`)
   }
   else if(fileExtension ==='png'){
-      //Compressing Portable Network Graphics
+      console.log(`Compressing Portable Network Graphics ${file}`)
   }
   else if(fileExtension ==='gif'){
-    //Compressing Graphics Interchange Format
+    console.log(`Compressing Graphics Interchange Format ${file}`)
   }
   else if(fileExtension ==='tif' || fileExtension === 'tiff'){
-    //Compressing Tagged Image File Format
+    console.log(`Compressing Tagged Image File Format ${file}`)
   }
   else if(fileExtension ==='ico' || fileExtension ==='cur'){
-    //Compressing Microsoft Icon
+    console.log(`Compressing Microsoft Icon ${file}`)
   }
   else if(fileExtension ==='bmp'){
-    //Compressing 	Bitmap file
+    console.log(`Compressing 	Bitmap file ${file}`)
   }
   else if(fileExtension ==='apng'){
-    //Compressing Animated Portable Network Graphics
+    console.log(`Compressing Animated Portable Network Graphics ${file}`)
   }
   else if(fileExtension ==='webp'){
-    //Compressing Web Picture format
+    console.log(`Compressing Web Picture format ${file}`)
   }
   else callback(null, null)
-}
+} 
