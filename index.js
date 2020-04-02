@@ -2,6 +2,8 @@ var fs = require('fs')
 var {copyFile, scanFolder} = require('./recurse')
 var unusedCss = require('./unusedCss')
 var compressImage =  require('./compressImages')
+var UglifyJS = require("uglify-js");
+
 
 module.exports = async function index(){
   await main()
@@ -36,6 +38,11 @@ async function main(){
       }
       else if(fileExtension =='js'){
           console.log(`compressing ${fileSubPath} . . .`)
+          var code = fs.readFileSync(filePath, 'utf8')
+          var result = UglifyJS.minify(code);
+          if (result.error) throw result.error;
+          else fs.writeFileSync(`output/${fileSubPath}`, result.code)
+          console.log('compressed the js file')
           //if the filsize is greater than x console.log(error)
           //compresss js file
           //save to output
