@@ -64,7 +64,11 @@ async function main(){
         await compressImage(filePath, (err, data) => {
           if(err) throw new Error(err)
           else{
-            if(data) console.log('image compressed')
+            if(data) {
+              console.log('image compressed')
+              //compressWebp
+              //replaceWebp
+            }
             else {
               console.log(`file format ${fileExtension} not recognized. Copying file as is.`)
               copyFile(fileSubPath)
