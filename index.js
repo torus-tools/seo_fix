@@ -18,13 +18,13 @@ module.exports = async function index(webp, cleanCss){
     .then(console.log('All Done!'))
     .catch((err) => {console.log(err)})
   } */
-  console.log('RESPONSE RESPONSE ', res)
+  //console.log('RESPONSE RESPONSE ', res)
   if(webP) {
-    console.log('FILES ', res.htmlfiles)
+    //console.log('FILES ', res.htmlfiles)
     for(file of res.htmlfiles){
       let html = await fs.promises.readFile(file, 'utf8')
       for(img of res.images) html = await webP.replace(img, html, file)
-      console.log('HTML \n', html)
+      //console.log('HTML \n', html)
       var result = minify(html, {
         removeAttributeQuotes: false,
         removeComments: false,
@@ -57,7 +57,7 @@ function main(webp, cleanCss){
         if(cleanCss){
           console.log('saving classes used in '+fileSubPath)
           classes = await unusedCss.createClassList(html, classes)
-          console.log("CLASS LIST", classes)
+          //console.log("CLASS LIST", classes)
         }
         if(!webP){
           var result = minify(html, {
