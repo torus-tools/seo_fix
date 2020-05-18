@@ -1,10 +1,13 @@
-var fs = require('fs');
+const fs = require('fs');
 var {copyFile, scanFolder} = require('./lib/recurse');
 var unusedCss = require('./lib/unusedCss');
 var compressImage =  require('./lib/compressImages');
 var webP =  require('./lib/webp');
 var UglifyJS = require("uglify-js");
 var {minify} = require('html-minifier');
+
+const cssnano = require('cssnano')
+const postcss = require('postcss')
 
 module.exports = async function index(webp, cleanCss){
   let res = await main(webp, cleanCss).catch((err) => {console.log(err)})
@@ -21,6 +24,7 @@ module.exports = async function index(webp, cleanCss){
     for(file of res.htmlfiles){
       let html = await fs.promises.readFile(file, 'utf8')
       for(img of res.images) html = await webP.replace(img, html, file)
+      console.log('HTML \n', html)
       var result = minify(html, {
         removeAttributeQuotes: false,
         removeComments: false,
@@ -74,7 +78,16 @@ function main(webp, cleanCss){
         /* if(!cleanCss){
           //minify CSS   
         } */
-        copyFile(fileSubPath)
+        fs.readFile(filePath, (err, css) => {
+          postcss([cssnano])
+            .process(css, { from: filePath, to: `output/${fileSubPath}` })
+            .then(result => {
+              fs.writeFile(`output/${fileSubPath}`, result.css, () => true)
+              if ( result.map ) {
+                fs.writeFile(`output/${fileSubPath}.map`, result.map, () => true)
+              }
+            })
+        })
       }
       else if(fileExtension =='js'){
         console.log(`compressing ${fileSubPath} . . .`)
