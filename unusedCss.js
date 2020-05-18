@@ -1,3 +1,4 @@
+var fs = require('fs')
 
 //finds used classes in the html files and adds them to a class list
 function createClassList(htmlFile, classes){
@@ -11,7 +12,7 @@ function createClassList(htmlFile, classes){
         if(!classesStr) console.log('Error. invalid class ' + htmlArr[i])
         let classesArr = classesStr.split(" ")
         for(let c of classesArr){
-          if(!classes[c]) classes[c] = ""
+          if(!classes[c]) classes[c] = true
         }
       }
       
@@ -20,20 +21,22 @@ function createClassList(htmlFile, classes){
 }
 
 //for all of the stylesheets it will parse classes and see if the class is present in the html. if not it will dlete the class from the stylesheet
-function deleteCss(stylesheets, classes){
+function deleteUnusedCss(stylesheets, classes){
+  //console.log(classes)
   for(let sheet of stylesheets){
     let stylesheet = fs.readFileSync(sheet, 'utf8')
     let styles = stylesheet.split("}")
-    for(let i =0; i<styles.length; i++){
-      let classLine = styles[i].split("{")[0]
-      let classInstance = stylesheets[i]+'}'
+    let i = 0;
+    for(let style of styles){
+      let classLine = style.split("{")[0]
+      let classInstance = style+'}'
       if(classLine.includes(",")){
-        let newsheet = stylesheet
+        /* let newsheet = stylesheet
         let classLineItems = classLine.split(",")
         let items = 0;
         let toDel = 0;
         for(let item of classLineItems) {
-          findClasses(item, classes, (err, data) => {
+          findClasses(sheet, item, classes, (err, data) => {
             if(err) throw new Error(err)
             else{
               items+=1
@@ -44,29 +47,48 @@ function deleteCss(stylesheets, classes){
             }
           })
         }
-        if(items === toDel) stylesheet = stylesheet.replace(classInstance, "")
-        else stylesheet = newsheet
+        if(items === toDel) {
+          //console.log("deleteing ", classInstance)
+          stylesheet = stylesheet.replace(classInstance, "")
+        }
+        else stylesheet = newsheet */
+        //console.log(classLine)
       }
       else {
-        findClasses(classLine, classes, (err, data) => {
+        findClasses(sheet, classLine, classes, (err, data) => {
           if(err) throw new Error(err)
           else{
-            if(data) stylesheet = stylesheet.replace(classInstance, "")
+            if(data){
+              console.log(data, classInstance)
+              stylesheet = stylesheet.replace(classInstance, "")
+              //console.log('deleted class ', data)
+            }
           }
         })
       }
+      i+=1
     }
+    let elems = styles.length -1
+    let outputPath = 'output/' + sheet.split("input/", 2)[1]
+    //console.log(stylesheet)
+    if(i >= elems) fs.writeFileSync(outputPath, stylesheet)
   }
 }
 
 //splits a class line item into classes sepparated by dots
-function findClasses(classLine, classes, callback){
+function findClasses(stylesheet, classLine, classes, callback){
   let classArr = classLine.split(" ")
+  //console.log('STYLESHEET', stylesheet, classArr)
   for( let c of classArr){
+      c = c.replace('\n',"").trim()
+      //console.log(c)
       if(c.includes(".")){
           multiclass = c.split(".")
           for(let inst of multiclass){
-            if(!classes[inst]) callback(null, inst)
+            if(!classes[inst]) {
+              //console.log(inst)
+              callback(null, inst)
+            }
           }
       }
       callback(null, null)
@@ -76,6 +98,6 @@ function findClasses(classLine, classes, callback){
 
 module.exports = {
   createClassList,
-  deleteCss,
+  deleteUnusedCss,
   findClasses
 }
