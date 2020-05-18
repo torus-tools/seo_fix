@@ -1,3 +1,3 @@
 var main = require('./index')
 
-main()
+main(true, true)
