@@ -80,8 +80,17 @@ function main(webp, cleanCss){
         .catch((err)=>console.log(err))
       }
       else {
-        await compressImage(filePath, imageArr).then((img) => imageArr.push(img)).catch((err) => console.log(err))
-        if(webp) await webP.compress(filePath);
+        await compressImage(filePath, imageArr)
+        .then((img) => {
+          if(img) {
+            imageArr.push(filePath);
+            if(webp) await webP.compress(filePath);
+          }
+          else {
+            console.log(`file format ${fileExtension} not recognized by Arjan. Copying file as is.`)
+            copyFile(fileSubPath)
+          }
+        }).catch((err) => console.log(err))
         /* await compressImage(filePath, (err, data) => {
           if(err) throw new Error(err)
           else{
