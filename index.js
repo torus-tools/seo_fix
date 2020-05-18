@@ -1,7 +1,7 @@
 var fs = require('fs');
-var {copyFile, scanFolder} = require('./recurse');
-var unusedCss = require('./unusedCss');
-var compressImage =  require('./compressImages');
+var {copyFile, scanFolder} = require('./lib/recurse');
+var unusedCss = require('./lib/unusedCss');
+var compressImage =  require('./lib/compressImages');
 var webP =  require('./lib/webp');
 var UglifyJS = require("uglify-js");
 var {minify} = require('html-minifier');
@@ -15,9 +15,9 @@ module.exports = async function index(webp, cleanCss){
     .catch((err) => {console.log(err)})
   }
   if(webP) {
-    for(file of response.htmlfiles){
+    for(file of res.htmlfiles){
       let html = await fs.promises.readFile(file, 'utf8')
-      for(img of response.images) html = await webP.replace(img, html)
+      for(img of res.images) html = await webP.replace(img, html, file)
       var result = minify(html, {
         removeAttributeQuotes: false,
         removeComments: false,
@@ -27,6 +27,7 @@ module.exports = async function index(webp, cleanCss){
         removeEmptyAttributes: true,
         removeEmptyElements: true
       });
+      let fileSubPath = file.split('input/', 2)[1];
       await fs.promises.writeFile(`output/${fileSubPath}`, result)
     }
   }
@@ -45,7 +46,7 @@ function main(webp, cleanCss){
       //let fileName = filePath.substring(filePath.lastIndexOf('/') + 1)
       if(fileExtension =='html'){
         htmlArr.push(filePath);
-        var html = await fs.promises.readFileSync(filePath, 'utf8').catch((err)=>reject(err))
+        var html = await fs.promises.readFile(filePath, 'utf8').catch((err)=>reject(err))
         if(cleanCss){
           console.log('saving classes used in '+fileSubPath)
           await unusedCss.createClassList(html, classes)
@@ -84,7 +85,7 @@ function main(webp, cleanCss){
         .then((img) => {
           if(img) {
             imageArr.push(filePath);
-            if(webp) await webP.compress(filePath);
+            if(webp) webP.compress(filePath);
           }
           else {
             console.log(`file format ${fileExtension} not recognized by Arjan. Copying file as is.`)
