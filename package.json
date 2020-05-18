@@ -1,6 +1,6 @@
 {
   "name": "torus_cms_build",
-  "version": "1.0.0",
+  "version": "0.5.0",
   "description": "node js script that builds an html website with repeated components like nav and footer",
   "main": "build-script.js",
   "dependencies": {
