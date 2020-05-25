@@ -1,6 +1,6 @@
 {
   "name": "arjan-optimize",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "a single command to optimize all your static assets. Uses several popular modules and also has a couple of features of its own.",
   "main": "index.js",
   "dependencies": {
