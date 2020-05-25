@@ -2,7 +2,7 @@ const {scanFolder, copyFile} =  require('./lib/recurse');
 const compressImages =  require('./lib/compressImages');
 const webP =  require('./lib/webp');
 const resizeImages = require('./lib/resizeImages');
-const optimizeConfig = require('./lib/optimizeConfig')
+const optimizeConfig = require('./lib/optimizeConfig');
 //const unusedCss = require('./lib/unusedCss');
 
 //module.exports.createClassList = unusedCss.createClassList;
