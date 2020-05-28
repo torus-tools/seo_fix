@@ -8,6 +8,7 @@ A JavaScript BigInt value.
 
 ```cpp
 static Napi::BigInt Napi::BigInt::New(Napi::Env env, int64_t value);
+static Napi::BigInt Napi::BigInt::New(Napi::Env env, uint64_t value);
 ```
 
  - `[in] env`: The environment in which to construct the `Napi::BigInt` object.
@@ -47,7 +48,7 @@ Returns a new empty JavaScript `Napi::BigInt`.
 ### Int64Value
 
 ```cpp
-int64_t Napi::BitInt::Int64Value(bool* lossless) const;
+int64_t Napi::BigInt::Int64Value(bool* lossless) const;
 ```
 
  - `[out] lossless`: Indicates whether the `BigInt` value was converted losslessly.
