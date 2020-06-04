@@ -1,3 +1,7 @@
+<img src="https://github.com/arjan-tools/site/blob/master/img/arjan_optimize_logo.svg" alt="Arjan Localize" width="200" style="max-width:100%;">
+
+[![License](http://img.shields.io/:license-mit-blue.svg?style=flat-square)](http://gkpty.mit-license.org)
+
 # Arjan Optimize
 
 
@@ -72,3 +76,4 @@ arjan optimize SITENAME [FILENAME] --img --webp --responsive --html --css --rcss
   
  ## Programmatic usage
 
+### For more info read the [docs](https://arjan.tools/docs) 
