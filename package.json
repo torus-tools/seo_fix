@@ -1,7 +1,7 @@
 {
   "name": "arjan-optimize",
-  "version": "0.6.2",
-  "description": "a single command to optimize all your static assets. Uses several popular modules and also has a couple of features of its own.",
+  "version": "0.6.3",
+  "description": "a single command to optimize all your static assets. Uses several popular modules and also has a couple of cool features of its own.",
   "main": "index.js",
   "dependencies": {
     "csso": "^4.0.3",
@@ -20,10 +20,12 @@
     "url": "git+https://github.com/gkpty/torus-cms-build-script.git"
   },
   "keywords": [
-    "node",
-    "static",
+    "minify",
+    "webp",
+    "static assets",
     "website",
-    "multipage"
+    "multipage",
+    "optimize"
   ],
   "author": "gkpty",
   "license": "MIT",
