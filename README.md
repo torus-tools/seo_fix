@@ -8,31 +8,8 @@
 
 ## Intro
 
-Arjan Optimize helps you optimize all of your static assets with a single command. It takes into account several of the modern web dev directives and uses some of the most popular node modules for minification/compression of assets with a couple of neat features of its own. For more info read the [docs](https://arjan.tools/docs)
-
-
-## How it works
-
-Arjan optimize scans your current directory recursively and for each file with a different module depending on the files MIME type. Arjan Optimize uses:
-
-- [Terser](https://github.com/terser/terser)
-- [csso](https://github.com/css/csso)
-- [html-minifier](https://github.com/kangax/html-minifier)
-- [Sharp](https://github.com/lovell/sharp)
-- [svgo](https://github.com/svg/svgo)
-## Formats supported
-| **Input** | **Module used** | **Output** | **options**                                                        | **reason used**                                                                                                                                               |
-| --------- | --------------- | ---------- | ------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| html      | html-minifier   | html       | options                                                            | [best compression](https://www.npmjs.com/package/html-minifier#minification-comparison)                                                                       |
-| css       | csso            | css        | [options](https://www.npmjs.com/package/csso#minifysource-options) | [best](http://goalsmashers.github.io/css-minification-benchmark/) overall size+[speed+compression](http://goalsmashers.github.io/css-minification-benchmark/) |
-| js        | terser          | js         | Parse, Compress, Mangle                                            | support for [ES6](http://www.ecma-international.org/ecma-262/6.0/), best speed & compression                                                                  |
-| svg       | svgo            | svg        | [options](https://www.npmjs.com/package/svgo#what-it-can-do)       | most widely used open source option                                                                                                                           |
-| jpeg      | sharp           | jpeg       | options                                                            | [fastest option](https://sharp.pixelplumbing.com/performance#results)                                                                                         |
-| png       | sharp           | png        | options                                                            | fastest option                                                                                                                                                |
-| webp      | sharp           | webp       | options                                                            | fastest option                                                                                                                                                |
-| gif       | sharp           | png        | options                                                            | fastest option                                                                                                                                                |
-| tiff      | sharp           | tiff       | options                                                            | fastest option                                                                                                                                                |
-
+Arjan Optimize is an API that extends the arjan CLI optimize command that uses webpack to optimize html multipage sites. For now the API only features a method for converting images to webP but more methods are comming soon!
+                                                          |
 ## Webp Images
 
 The webp option in Arjan Optimize does 2 things:
