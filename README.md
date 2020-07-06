@@ -77,4 +77,4 @@ arjan optimize SITENAME [FILENAME] --img --webp --responsive --html --css --rcss
   
  ## Programmatic usage
 
-### For more info read the [docs](https://arjan.tools/docs) 
+### For more info read the [docs](https://arjan.tools/docs.html) 
